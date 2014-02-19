@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html ng-app="customersApp">
+<head>
+    <title>Angular App</title>
+</head>
+<body>
+    <h1>AngularJS in 20-ish Minutes</h1>
+
+    <div ng-view></div>
+
+    <script type="text/javascript" src="js/angular.js" ></script>
+    <script type="text/javascript" src="js/angular-route.js" ></script>
+    <script type="text/javascript">
+        var app = angular.module('customersApp', ['ngRoute']);
+
+        app.config(['$routeProvider',function($routeProvider) {
+            $routeProvider.
+                when('/', {
+                    templateUrl: '/app/views/customers.html',
+                    controller: 'CustomersController'
+                }).
+                when('/detail/:customerId', {
+                    templateUrl: '/app/views/detail.html',
+                    controller: 'DetailController'
+                });
+        }]);
+
+        app.controller('DetailController', ['$scope', function($scope){
+            $scope.customerId = 5;
+        }]);
+
+        app.controller('CustomersController', ['$scope', function($scope){
+            $scope.customers = [{"id" : 1, "name" : "Ted", "total": 5.996},
+            {"id" : 2, "name" : "Michelle", "total": 10.996},
+            {"id" : 3, "name" : "Zed", "total": 10.99},
+            {"id" : 4, "name" : "Tina", "total": 15.996}];
+        }]);
+    </script>
+</body>
+</html>
